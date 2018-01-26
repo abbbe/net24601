@@ -1,6 +1,6 @@
 #!/bin/sh -x
 
-BASEDIR=/Users/abb/Documents/dvp/net42
+BASEDIR=`dirname $0` 
 DATADIR=$BASEDIR/datadir
 IPCPATH=$DATADIR/geth.ipc
 GENESIS=$BASEDIR/genesis.json

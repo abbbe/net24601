@@ -1,17 +1,24 @@
 #!/bin/sh -x
 
-DATADIR=/Users/abb/Documents/dvp/net42/datadir
-GENESIS=/Users/abb/Documents/dvp/net42/genesis.json
-GETH_ARGS="--verbosity 5 --datadir $DATADIR --nodiscover --maxpeers 0 --mine --targetgaslimit 7500000 --rpc --password $PWDFILE"
+BASEDIR=/Users/abb/Documents/dvp/net42
+DATADIR=$BASEDIR/datadir
+IPCPATH=$DATADIR/geth.ipc
+GENESIS=$BASEDIR/genesis.json
+GETH_ARGS="--datadir $DATADIR --nodiscover --maxpeers 0 --targetgaslimit 7500000 --rpc"
 
 case $1 in
 	init)
 		geth --datadir $DATADIR init $GENESIS
-		geth --datadir $DATADIR --exec "personal.newAccount('')" console
+		geth $GETH_ARGS --exec "loadScript('$BASEDIR/init_accounts.js')" console
+		$0 run
 		;;
 
 	run)
-		geth $GETH_ARGS --minerthreads 1 console
+		geth $GETH_ARGS --mine --minerthreads 1 --unlock 0,1,2,3 --password /dev/null console
+		;;
+
+	fund)
+		geth $GETH_ARGS --exec "loadScript('$BASEDIR/fund_accounts.js')" attach $IPCPATH
 		;;
 
 	removedb)
@@ -19,7 +26,7 @@ case $1 in
 		;;
 
 	attach)
-		geth attach $DATADIR/geth.ipc
+		geth attach $IPCPATH
 		;;
 esac
 

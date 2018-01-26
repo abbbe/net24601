@@ -4,7 +4,7 @@ BASEDIR=/Users/abb/Documents/dvp/net42
 DATADIR=$BASEDIR/datadir
 IPCPATH=$DATADIR/geth.ipc
 GENESIS=$BASEDIR/genesis.json
-GETH_ARGS="--datadir $DATADIR --nodiscover --maxpeers 0 --targetgaslimit 7500000 --rpc"
+GETH_ARGS="--datadir $DATADIR --nodiscover --maxpeers 0 --targetgaslimit 7500000 --rpc --rpcport 6545"
 
 case $1 in
 	run)

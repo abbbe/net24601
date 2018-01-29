@@ -1,2 +1,2 @@
-// create 4 accounts with empty passwords
-while(eth.accounts.length < 4) { personal.newAccount('') }
+// create 10 accounts with empty passwords
+while(eth.accounts.length < 10) { personal.newAccount('') }
